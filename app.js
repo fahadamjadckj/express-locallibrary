@@ -5,10 +5,13 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var helmet = require('helmet');
+var compression = require('compression');
 
 // setup mongodb connection:
-const mongodb = 'mongodb+srv://martialdwarf:fahad-amjad-ckj@cluster0.vdj17.mongodb.net/local_library?retryWrites=true&w=majority';
-mongoose.connect(mongodb, {useNewUrlParser: true, useUnifiedTopology: true});
+// Set up mongoose connection
+var dev_db_url = 'mongodb+srv://cooluser:coolpassword@cluster0-mbdj7.mongodb.net/local_library?retryWrites=true'
+var mongoDB = process.env.MONGODB_URI || dev_db_url;
+mongoose.connect(mongoDB, {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
